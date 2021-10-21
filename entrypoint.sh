@@ -1,6 +1,8 @@
 #!/bin/sh -l
 set -x
 
+docker run --privileged -d --name $EVAL_CONTAINER_NAME mjgargani/docker:dind-trybe1.0
+
 run_npm_start=$1
 wait_for_url=$2
 
