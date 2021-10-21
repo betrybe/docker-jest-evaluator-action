@@ -29,11 +29,11 @@ npm install
 #   npm start & npx wait-on $wait_for_url
 # fi
 
-npm test -- --json --outputFile=evaluation.json
+# npm test -- --json --outputFile=evaluation.json
 
-ls -la .
+ls -la $(pwd)
 
-node /evaluator.js evaluation.json .trybe/requirements.json result.json
+# node /evaluator.js evaluation.json .trybe/requirements.json result.json
 
 # docker rm -fv $EVAL_CONTAINER_NAME &> /dev/null
 
