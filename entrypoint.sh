@@ -18,7 +18,7 @@ set -x
 
 # docker exec $EVAL_CONTAINER_NAME ls -la ..
 
-npm install
+# npm install
 
 # npm test -- --json --outputFile=evaluation.json
 
@@ -26,10 +26,10 @@ npm install
 
 # docker rm -fv $EVAL_CONTAINER_NAME &> /dev/null
 
-if [ $? != 0 ]; then
-  echo "Execution error"
-  exit 1
-fi
+# if [ $? != 0 ]; then
+#   echo "Execution error"
+#   exit 1
+# fi
 
 # echo ::set-output name=result::`cat result.json | base64 -w 0`
 
