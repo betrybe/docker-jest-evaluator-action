@@ -19,6 +19,6 @@ runs:
     - name: Run Evaluator
       run: ./entrypoint.sh
       shell: bash
-  args:
-    - ${{ inputs.npm-start }}
-    - ${{ inputs.wait-for }}
+  # args:
+  #   - ${{ inputs.npm-start }}
+  #   - ${{ inputs.wait-for }}
