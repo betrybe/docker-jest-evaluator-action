@@ -1,13 +1,8 @@
 #!/bin/sh -l
 set -x
 
-# run_npm_start=$1
-# wait_for_url=$2
-
 # docker_dir=$(pwd)/docker
 # work_dir=/$EVAL_CONTAINER_NAME
-
-# ls -la $(pwd)/docker
 
 # docker rm -fv $EVAL_CONTAINER_NAME &> /dev/null
 
@@ -25,22 +20,9 @@ set -x
 
 npm install
 
-# if $run_npm_start ; then
-#   npm start & npx wait-on $wait_for_url
-# fi
+npm test -- --json --outputFile=evaluation.json
 
-# npm test -- --json --outputFile=evaluation.json
-
-ls -la ./.github
-
-
-ls -la ./.github/actions
-
-
-ls -la ./.github/actions/docker-jest-evaluator
-
-
-# node ./.github/actions/docker-jest-evaluator/evaluator.js evaluation.json .trybe/requirements.json result.json
+node ./.github/actions/docker-jest-evaluator/evaluator.js evaluation.json .trybe/requirements.json result.json
 
 # docker rm -fv $EVAL_CONTAINER_NAME &> /dev/null
 
