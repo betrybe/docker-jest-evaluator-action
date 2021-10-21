@@ -1,36 +1,21 @@
 #!/bin/sh -l
 set -x
 
-docker_folder=$(pwd)/docker
-work_dir=/usr/local/$EVAL_CONTAINER_NAME 
+run_npm_start=$1
+wait_for_url=$2
 
-docker rm -fv $EVAL_CONTAINER_NAME
+docker rm -fv $EVAL_CONTAINER_NAME &> /dev/null
 
-docker run \
-  --privileged \
-  -d \
-  --restart always \
-  --name $EVAL_CONTAINER_NAME \
-  -w $work_dir \
-  -v $docker_folder:$work_dir \
-  mjgargani/docker:dind-trybe1.0
+npm install
 
-docker exec $EVAL_CONTAINER_NAME ls -la $work_dir
+if $run_npm_start ; then
+  npm start & npx wait-on $wait_for_url
+fi
 
-# run_npm_start=$1
-# wait_for_url=$2
+npm test -- --json --outputFile=evaluation.json
+node /evaluator.js evaluation.json .trybe/requirements.json result.json
 
-# npm install
-
-# if $run_npm_start ; then
-#   npm start & npx wait-on $wait_for_url
-# fi
-
-# npm test -- --json --outputFile=evaluation.json
-# node /evaluator.js evaluation.json .trybe/requirements.json result.json
-
-docker rm -fv $EVAL_CONTAINER_NAME
-rm -rf $docker_folder
+docker rm -fv $EVAL_CONTAINER_NAME &> /dev/null
 
 if [ $? != 0 ]; then
   echo "Execution error"
