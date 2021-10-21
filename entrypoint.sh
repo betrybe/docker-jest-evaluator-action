@@ -1,6 +1,15 @@
 #!/bin/sh -l
 set -x
 
+docker_folder=$(pwd)/docker
+work_dir=/usr/local/$EVAL_CONTAINER_NAME 
+
+docker run --privileged -d \
+  --name $EVAL_CONTAINER_NAME \
+  -w $work_dir \
+  -v $docker_folder:$work_dir \
+  mjgargani/docker:dind-trybe1.0
+
 run_npm_start=$1
 wait_for_url=$2
 
