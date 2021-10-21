@@ -4,7 +4,10 @@ set -x
 docker_folder=$(pwd)/docker
 work_dir=/usr/local/$EVAL_CONTAINER_NAME 
 
-docker run --privileged -d \
+docker run \
+  --privileged \
+  -d \
+  --restart always \
   --name $EVAL_CONTAINER_NAME \
   -w $work_dir \
   -v $docker_folder:$work_dir \
