@@ -1,5 +1,5 @@
-name: 'Jest evaluator'
-description: 'Jest evaluator action for Tryber projects'
+name: 'Docker:Dind Jest evaluator'
+description: 'Docker:Dind Jest evaluator action for Tryber projects'
 inputs:
   npm-start:
     description: 'Run npm start and waits to url before testing'
@@ -14,8 +14,11 @@ outputs:
   result:
     description: 'Jest unit tests JSON results in base64 format.'
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: 'composite'
+  steps:
+    - name: Run Evaluator
+      run: ./entrypoint.sh
+      shell: bash
   args:
     - ${{ inputs.npm-start }}
     - ${{ inputs.wait-for }}
