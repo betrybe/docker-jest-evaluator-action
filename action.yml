@@ -17,7 +17,7 @@ runs:
   using: 'composite'
   steps:
     - name: Run Evaluator
-      run: ./entrypoint.sh
+      run: ls -la
       shell: bash
   # args:
   #   - ${{ inputs.npm-start }}
