@@ -4,6 +4,12 @@ set -x
 docker_folder=$(pwd)/docker
 work_dir=/usr/local/$EVAL_CONTAINER_NAME 
 
+ls -la
+
+ls -la $docker_folder
+
+ls -la $docker_folder/todo-app
+
 docker rm -fv $EVAL_CONTAINER_NAME
 
 docker run \
