@@ -30,6 +30,9 @@ npm install
 # fi
 
 npm test -- --json --outputFile=evaluation.json
+
+ls -la .
+
 node /evaluator.js evaluation.json .trybe/requirements.json result.json
 
 # docker rm -fv $EVAL_CONTAINER_NAME &> /dev/null

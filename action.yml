@@ -16,7 +16,7 @@ outputs:
 runs:
   using: 'composite'
   steps:
-    - name: Run Evaluator
+    - name: Run EntryPoint
       run: ${{ github.action_path }}/entrypoint.sh
       shell: bash
   # args:
