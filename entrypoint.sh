@@ -31,9 +31,16 @@ npm install
 
 # npm test -- --json --outputFile=evaluation.json
 
+ls -la ./.github
+
+
+ls -la ./.github/actions
+
+
 ls -la ./.github/actions/docker-jest-evaluator
 
-node ./.github/actions/docker-jest-evaluator/evaluator.js evaluation.json .trybe/requirements.json result.json
+
+# node ./.github/actions/docker-jest-evaluator/evaluator.js evaluation.json .trybe/requirements.json result.json
 
 # docker rm -fv $EVAL_CONTAINER_NAME &> /dev/null
 
