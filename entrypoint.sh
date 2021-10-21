@@ -15,7 +15,7 @@ docker run \
   -v $docker_folder:$work_dir \
   mjgargani/docker:dind-trybe1.0
 
-docker exec $EVAL_CONTAINER_NAME ls -la
+docker exec $EVAL_CONTAINER_NAME ls -la $work_dir
 
 # run_npm_start=$1
 # wait_for_url=$2
