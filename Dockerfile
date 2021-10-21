@@ -15,10 +15,6 @@ RUN set -x \
       && rm -rf /var/cache/apk/* /root/.node-gyp /usr/share/man /tmp/* \
       && echo
 
-RUN addgroup -S docker && adduser -S trybe -G docker
-
-USER trybe
-
 ENV EVAL_CONTAINER_NAME=trybe-docker-eval
 
 COPY entrypoint.sh /entrypoint.sh
