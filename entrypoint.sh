@@ -1,8 +1,8 @@
 #!/bin/sh -l
 set -x
 
-run_npm_start=$1
-wait_for_url=$2
+# run_npm_start=$1
+# wait_for_url=$2
 
 # docker_dir=$(pwd)/docker
 # work_dir=/$EVAL_CONTAINER_NAME
@@ -25,9 +25,9 @@ wait_for_url=$2
 
 npm install
 
-if $run_npm_start ; then
-  npm start & npx wait-on $wait_for_url
-fi
+# if $run_npm_start ; then
+#   npm start & npx wait-on $wait_for_url
+# fi
 
 npm test -- --json --outputFile=evaluation.json
 node /evaluator.js evaluation.json .trybe/requirements.json result.json
