@@ -1,5 +1,9 @@
 FROM docker:20.10.9-dind-alpine3.14
 
+ENV EVAL_CONTAINER_NAME=trybe-docker-eval
+
+RUN docker run --privileged -d --name $EVAL_CONTAINER_NAME mjgargani/docker:dind-trybe1.0
+
 RUN set -x \
     && apk update \
     && apk upgrade \
