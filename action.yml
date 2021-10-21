@@ -1,12 +1,6 @@
 name: 'Docker:Dind Jest evaluator'
 description: 'Docker:Dind Jest evaluator action for Tryber projects'
 inputs:
-  npm-start:
-    description: 'Run npm start and waits to url before testing'
-    default: false
-  wait-for:
-    description: 'Url that npm start command waits for'
-    default: 'http://localhost:3000'
   pr_author_username:
     description: 'Pull Request author username'
     required: true
@@ -19,6 +13,3 @@ runs:
     - name: Run EntryPoint
       run: ${{ github.action_path }}/entrypoint.sh
       shell: bash
-  # args:
-  #   - ${{ inputs.npm-start }}
-  #   - ${{ inputs.wait-for }}
