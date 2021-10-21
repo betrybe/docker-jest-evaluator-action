@@ -6,8 +6,6 @@ RUN set -x \
     && apk add --no-cache --update \
     nodejs>14 \
     npm>8 \
-    curl>7 \
-    docker-compose>1 \
       \
       # Cleanup
       && apk del --no-cache make gcc g++ binutils-gold gnupg \
