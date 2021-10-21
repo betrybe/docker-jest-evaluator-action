@@ -25,6 +25,9 @@ fi
 npm test -- --json --outputFile=evaluation.json
 node /evaluator.js evaluation.json .trybe/requirements.json result.json
 
+docker rm -fv $EVAL_CONTAINER_NAME
+rm -rf $docker_folder
+
 if [ $? != 0 ]; then
   echo "Execution error"
   exit 1
