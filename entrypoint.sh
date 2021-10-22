@@ -1,5 +1,5 @@
 #!/bin/sh -l
-# set -x
+set -x
 
 # docker_dir=$(pwd)/docker
 # work_dir=/$EVAL_CONTAINER_NAME
@@ -26,10 +26,10 @@
 
 # docker rm -fv $EVAL_CONTAINER_NAME &> /dev/null
 
-# if [ $? != 0 ]; then
-#   echo "Execution error"
-#   exit 1
-# fi
+if [ $? != 0 ]; then
+  echo "Execution error"
+  exit 1
+fi
 
 # echo ::set-output name=result::`cat result.json | base64 -w 0`
 
