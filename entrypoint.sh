@@ -1,19 +1,21 @@
 #!/bin/sh -l
 set -x
 
-export EVAL_CONTAINER_NAME="trybe-eval-$(cat /proc/sys/kernel/random/uuid)"
+printenv
 
-npm install
+# export EVAL_CONTAINER_NAME="trybe-eval-$(cat /proc/sys/kernel/random/uuid)"
 
-npm test -- --json --outputFile=evaluation.json
+# npm install
 
-node ./.github/actions/docker-jest-evaluator/evaluator.js evaluation.json .trybe/requirements.json result.json
+# npm test -- --json --outputFile=evaluation.json
 
-docker rm -fv $EVAL_CONTAINER_NAME &> /dev/null
+# node ./.github/actions/docker-jest-evaluator/evaluator.js evaluation.json .trybe/requirements.json result.json
 
-if [ $? != 0 ]; then
-  echo "Execution error"
-  exit 1
-fi
+# docker rm -fv $EVAL_CONTAINER_NAME &> /dev/null
 
-echo ::set-output name=result::`cat result.json | base64 -w 0`
+# if [ $? != 0 ]; then
+#   echo "Execution error"
+#   exit 1
+# fi
+
+# echo ::set-output name=result::`cat result.json | base64 -w 0`
