@@ -1,21 +1,11 @@
 # jest-evaluator-action
-Jest evaluator action for Tryber projects
+Docker Jest evaluator action for Tryber projects
 
 This action evaluate Tryber projects with [Jest](https://jestjs.io/) library.
 
+Based on https://github.com/betrybe/jest-evaluator-action/tree/v9
+
 ## Inputs
-
-- `npm-start`
-
-  Optional
-
-  Run npm start and waits to url before testing.
-
-- `wait-for`
-
-  Optional
-
-  Url that npm start command waits for
 
 - `pr_author_username`
 
@@ -35,10 +25,11 @@ This action evaluate Tryber projects with [Jest](https://jestjs.io/) library.
 - uses: betrybe/jest-evaluator-action@v8
   with:
     pr_author_username: ${{ github.event.inputs.pr_author_username }}
-  with:
-    npm-start: true # false is default
-    wait-for: 'http://localhost:8080' # http://localhost:3000 is default
 ```
+
+The difference between this action and the original one is that it opens up so that you can access the docker on the host system (VM).
+
+It is therefore possible to execute a docker command to create a container based on the student's project.
 
 ## How to get result output
 ```yml
