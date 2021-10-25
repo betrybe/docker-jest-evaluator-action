@@ -11,10 +11,7 @@ outputs:
 runs:
   using: 'composite'
   steps:
-    - name: Export PR Author Username
-      run: export INPUT_PR_AUTHOR_USERNAME=${{ inputs.pr_author_username }}
-      shell: bash
     - name: Run EntryPoint
       id: run-entrypoint
-      run: ${{ github.action_path }}/entrypoint.sh
+      run: export INPUT_PR_AUTHOR_USERNAME=${{ inputs.pr_author_username }} && ${{ github.action_path }}/entrypoint.sh
       shell: bash
