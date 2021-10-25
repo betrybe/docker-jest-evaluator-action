@@ -7,9 +7,11 @@ inputs:
 outputs:
   result:
     description: 'Jest unit tests JSON results in base64 format.'
+    value: ${{ steps.run-entrypoint.outputs.result }}
 runs:
   using: 'composite'
   steps:
     - name: Run EntryPoint
+      id: run-entrypoint
       run: ${{ github.action_path }}/entrypoint.sh
       shell: bash
