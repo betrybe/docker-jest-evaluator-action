@@ -1,6 +1,8 @@
 #!/bin/sh -l
 set -x
 
+export EVAL_CONTAINER_NAME="trybe-eval-$(cat /proc/sys/kernel/random/uuid)"
+
 npm install
 
 npm test -- --json --outputFile=evaluation.json
