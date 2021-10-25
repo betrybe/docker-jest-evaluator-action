@@ -1,34 +1,17 @@
 #!/bin/sh -l
 set -x
 
-# docker_dir=$(pwd)/docker
-# work_dir=/$EVAL_CONTAINER_NAME
+npm install
 
-# docker rm -fv $EVAL_CONTAINER_NAME &> /dev/null
+npm test -- --json --outputFile=evaluation.json
 
-# docker run \
-#   --name $EVAL_CONTAINER_NAME \
-#   --privileged \
-#   -d \
-#   -w $work_dir \
-#   -v $docker_dir:$work_dir \
-#   mjgargani/docker:dind-trybe1.0 \
+node ./.github/actions/docker-jest-evaluator/evaluator.js evaluation.json .trybe/requirements.json result.json
 
-# docker exec $EVAL_CONTAINER_NAME ls -la
+docker rm -fv $EVAL_CONTAINER_NAME &> /dev/null
 
-# docker exec $EVAL_CONTAINER_NAME ls -la ..
+if [ $? != 0 ]; then
+  echo "Execution error"
+  exit 1
+fi
 
-# npm install
-
-# npm test -- --json --outputFile=evaluation.json
-
-# node ./.github/actions/docker-jest-evaluator/evaluator.js evaluation.json .trybe/requirements.json result.json
-
-# docker rm -fv $EVAL_CONTAINER_NAME &> /dev/null
-
-# if [ $? != 0 ]; then
-#   echo "Execution error"
-#   exit 1
-# fi
-
-echo ::set-output name=result::ewogICJnaXRodWJfdXNlcm5hbWUiOiAibWpnYXJnYW5pIiwKICAiZ2l0aHViX3JlcG9zaXRvcnlfbmFtZSI6ICJiZXRyeWJlL3NkLTB4LXByb2plY3QtZG9ja2VyLXRvZG8tbGlzdC12My1zdGFnaW5nIiwKICAiZXZhbHVhdGlvbnMiOiBbCiAgICB7CiAgICAgICJkZXNjcmlwdGlvbiI6ICJDcmllIHVtIG5vdm8gY29udGFpbmVyIGRlIG1vZG8gaW50ZXJhdGl2byBzZW0gcm9kYS1sbyBub21lYW5kby1vIGNvbW8gJzAxY29udGFpbmVyJyBlIHV0aWxpemFuZG8gYSBpbWFnZW0gJ2FscGluZScgdXNhbmRvIGEgdmVyc8OjbyAnMy4xMiciLAogICAgICAiZ3JhZGUiOiAzCiAgICB9LAogICAgewogICAgICAiZGVzY3JpcHRpb24iOiAiSW5pY2llIG8gY29udGFpbmVyICcwMWNvbnRhaW5lciciLAogICAgICAiZ3JhZGUiOiAzCiAgICB9LAogICAgewogICAgICAiZGVzY3JpcHRpb24iOiAiTGlzdGUgb3MgY29udGFpbmVycyBmaWx0cmFuZG8gcGVsbyBub21lICcwMWNvbnRhaW5lciciLAogICAgICAiZ3JhZGUiOiAzCiAgICB9LAogICAgewogICAgICAiZGVzY3JpcHRpb24iOiAiRXhlY3V0ZSBvIGNvbWFuZG8gJ2NhdCAvZXRjL29zLXJlbGVhc2UnIG5vIGNvbnRhaW5lciAnMDFjb250YWluZXInIHNlbSBzZSBhY29wbGFyIGEgZWxlIiwKICAgICAgImdyYWRlIjogMwogICAgfSwKICAgIHsKICAgICAgImRlc2NyaXB0aW9uIjogIlJlbW92YSBvIGNvbnRhaW5lciAnMDFjb250YWluZXInIHF1ZSBlc3TDoSBlbSBhbmRhbWVudG8iLAogICAgICAiZ3JhZGUiOiAzCiAgICB9LAogICAgewogICAgICAiZGVzY3JpcHRpb24iOiAiRmHDp2EgbyBkb3dubG9hZCBkYSBpbWFnZW0gJ25naW54JyBjb20gYSB2ZXJzw6NvICcxLjIxLjMtYWxwaW5lJyBzZW0gY3JpYXIgdW0gY29udGFpbmVyIiwKICAgICAgImdyYWRlIjogMwogICAgfSwKICAgIHsKICAgICAgImRlc2NyaXB0aW9uIjogIlJvZGUgdW0gbm92byBjb250YWluZXIgZW0gc2VndW5kbyBwbGFubyBub21lYW5kby1vIGNvbW8gJzAyaW1hZ2VzJyBlIG1hcGVhbmRvIHN1YSBwb3J0YSBwYWRyw6NvIGRlIGFjZXNzbyBwYXJhIHBvcnRhIDMwMDAgZG8gc2lzdGVtYSBob3NwZWRlaXJvIiwKICAgICAgImdyYWRlIjogMwogICAgfSwKICAgIHsKICAgICAgImRlc2NyaXB0aW9uIjogIlBhcmUgbyBjb250YWluZXIgJzAyaW1hZ2VzJyBxdWUgZXN0w6EgZW0gYW5kYW1lbnRvIiwKICAgICAgImdyYWRlIjogMwogICAgfSwKICAgIHsKICAgICAgImRlc2NyaXB0aW9uIjogIkdlcmUgdW1hIGJ1aWxkIGEgcGFydGlyIGRvIERvY2tlcmZpbGUgZG8gYmFjay1lbmQgZG8gJ3RvZG8tYXBwJyBub21lYW5kbyBhIGltYWdlbSBwYXJhICd0b2RvYmFja2VuZCciLAogICAgICAiZ3JhZGUiOiAzCiAgICB9LAogICAgewogICAgICAiZGVzY3JpcHRpb24iOiAiR2VyZSB1bWEgYnVpbGQgYSBwYXJ0aXIgZG8gRG9ja2VyZmlsZSBkbyBmcm9udC1lbmQgZG8gJ3RvZG8tYXBwJyBub21lYW5kbyBhIGltYWdlbSBwYXJhICd0b2RvZnJvbnRlbmQnIiwKICAgICAgImdyYWRlIjogMwogICAgfSwKICAgIHsKICAgICAgImRlc2NyaXB0aW9uIjogIkdlcmUgdW1hIGJ1aWxkIGEgcGFydGlyIGRvIERvY2tlcmZpbGUgZG9zIHRlc3RlcyBkbyAndG9kby1hcHAnIG5vbWVhbmRvIGEgaW1hZ2VtIHBhcmEgJ3RvZG90ZXN0cyciLAogICAgICAiZ3JhZGUiOiAzCiAgICB9LAogICAgewogICAgICAiZGVzY3JpcHRpb24iOiAiU3ViYSB1bWEgb3JxdWVzdHJhw6fDo28gZW0gc2VndW5kbyBwbGFubyBjb20gbyBkb2NrZXItY29tcG9zZSBkZSBmb3JtYSBxdWUgYmFjayBlIGZyb250IGVuZCBjb25zaWdhbSBzZSBjb211bmljYXIiLAogICAgICAiZ3JhZGUiOiAzCiAgICB9CiAgXQp9Cg==
+echo ::set-output name=result::`cat result.json | base64 -w 0`
