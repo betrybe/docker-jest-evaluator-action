@@ -1,6 +1,8 @@
 #!/bin/sh -l
 set -x
 
+printenv
+
 npm install
 
 npm test -- --json --outputFile=evaluation.json
