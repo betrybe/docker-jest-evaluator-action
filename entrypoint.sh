@@ -9,9 +9,8 @@ npm test -- --json --outputFile=evaluation.json
 
 node ./.github/actions/docker-jest-evaluator/evaluator.js evaluation.json .trybe/requirements.json result.json
 
-docker rm -fv $EVAL_CONTAINER_NAME &> /dev/null
-
 if [ $? != 0 ]; then
+  docker rm -fv $EVAL_CONTAINER_NAME &> /dev/null
   echo "Execution error"
   exit 1
 fi
