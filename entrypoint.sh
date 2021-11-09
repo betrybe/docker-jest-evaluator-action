@@ -1,5 +1,5 @@
 #!/bin/sh -l
-set -x
+set -e
 
 export EVAL_CONTAINER_NAME="trybe-eval-$(cat /proc/sys/kernel/random/uuid)"
 
