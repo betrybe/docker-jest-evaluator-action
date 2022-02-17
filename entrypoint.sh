@@ -15,6 +15,9 @@ while ! docker info; do
   sleep 3
 done
 
+# Run default jest evaluation
+npm install
+
 # Start student compose
 (cd $compose_challenges_folder && docker-compose up -d --build)
 
@@ -22,9 +25,6 @@ if [ $? != 0 ]; then
   echo "Compose execution error"
   exit 1
 fi
-
-# Run default jest evaluation
-npm install
 
 npx wait-on -t 300000 $wait_for_url # wait for server until timeout
 
