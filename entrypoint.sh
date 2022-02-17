@@ -1,24 +1,39 @@
-#!/bin/sh -l
+#!/bin/bash
+
 set -x
+set -m
 
-sudo apt update
+compose_challenges_folder=$1
+wait_for_url=$2
 
-# puppeteer requirements
-sudo apt install -y ca-certificates fonts-liberation libappindicator3-1 libasound2 libatk-bridge2.0-0 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgbm1 libgcc1 libglib2.0-0 libgtk-3-0 libnspr4 libnss3 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 lsb-release wget xdg-utils
+# Start docker service in background
+/usr/local/bin/dockerd-entrypoint.sh &
 
-export EVAL_CONTAINER_NAME="trybe-eval-$(cat /proc/sys/kernel/random/uuid)"
+# Wait that the docker service is up
+while ! docker info; do
+  echo "Waiting docker..."
+  sleep 3
+done
 
-npm install
-
-npm test -- --json --outputFile=evaluation.json
-
-node ./.github/actions/docker-jest-evaluator/evaluator.js evaluation.json .trybe/requirements.json result.json
+# Start student compose
+(cd $compose_challenges_folder && docker-compose up -d --build)
 
 if [ $? != 0 ]; then
-  docker rm -fv $(docker ps -qaf name=$EVAL_CONTAINER_NAME) &> /dev/null
+  echo "Compose execution error"
+  exit 1
+fi
+
+# Run default jest evaluation
+npm install
+
+npx wait-on -t 300000 $wait_for_url # wait for server until timeout
+
+npm test -- --json --forceExit --outputFile=evaluation.json
+node /evaluator.js evaluation.json .trybe/requirements.json result.json
+
+if [ $? != 0 ]; then
   echo "Execution error"
   exit 1
 fi
 
-docker rm -fv $(docker ps -qaf name=$EVAL_CONTAINER_NAME) &> /dev/null
 echo ::set-output name=result::`cat result.json | base64 -w 0`
