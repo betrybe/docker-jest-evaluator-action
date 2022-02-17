@@ -4,7 +4,7 @@ set -x
 set -m
 
 compose_challenges_folder=$1
-wait_for_url=$2
+# wait_for_url=$2
 
 # Start docker service in background
 /usr/local/bin/dockerd-entrypoint.sh &
@@ -26,7 +26,7 @@ if [ $? != 0 ]; then
   exit 1
 fi
 
-npx wait-on -t 300000 $wait_for_url # wait for server until timeout
+# npx wait-on -t 300000 $wait_for_url # wait for server until timeout
 
 npm test -- --json --forceExit --outputFile=evaluation.json
 node /evaluator.js evaluation.json .trybe/requirements.json result.json
