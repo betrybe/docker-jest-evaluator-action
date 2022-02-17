@@ -17,7 +17,7 @@ outputs:
 
 runs:
   using: 'docker'
-  image: 'docker://betrybe/docker-jest-evaluator-action/tree/v1_1'
+  image: 'Dockerfile'
   args:
     - ${{ inputs.challenges_folder }}
     - ${{ inputs.wait-for }}
