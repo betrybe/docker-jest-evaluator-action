@@ -23,9 +23,5 @@ runs:
   steps:
     - name: Run EntryPoint
       id: run-entrypoint
-      run:  INPUT_CHALLENGES_FOLDER=${{ inputs.challenges_folder }} \
-            INPUT_PUPPETEER_TEST=${{ inputs.puppeteer_test }} \
-            INPUT_RUN_COMPOSE=${{ inputs.run_compose }} \
-            INPUT_PR_AUTHOR_USERNAME=${{ inputs.pr_author_username }} \
-            ${{ github.action_path }}/entrypoint.sh
+      run: export INPUT_CHALLENGES_FOLDER=${{ inputs.challenges_folder }} && export INPUT_PUPPETEER_TEST=${{ inputs.puppeteer_test }} && export INPUT_RUN_COMPOSE=${{ inputs.run_compose }} && export INPUT_PR_AUTHOR_USERNAME=${{ inputs.pr_author_username }} && ${{ github.action_path }}/entrypoint.sh
       shell: bash
