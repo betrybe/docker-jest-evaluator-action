@@ -1,17 +1,50 @@
-# jest-evaluator-action
+# docker-jest-evaluator-action v1.1
 Docker Jest evaluator action for Tryber projects
 
 This action evaluate Tryber projects with [Jest](https://jestjs.io/) library.
 
-Based on https://github.com/betrybe/jest-evaluator-action/tree/v9
+Based on https://github.com/betrybe/jest-evaluator-action/tree/v9.1
 
+**Require the `Setup NodeJS` action to be executed prior to the action**
 ## Inputs
+
+- `challenges_folder`
+    
+  **Required**
+  
+  **Default**: `app`
+    
+  (path) Folder that contains the docker-compose.yml file
+
+- `puppeteer_test`
+
+  Optional
+
+  **Default**: `undefined`
+
+  (true | undefined) Install chrome´s puppeteer requirements
+
+- `run_compose`
+
+  Optional
+
+  **Default**: `undefined`
+
+  (true | undefined) Run docker-compose in `challenges_folder` after `npm install`
+
+- `wait_for`
+
+  Optional
+
+  **Default**: `undefined`
+
+  (url | undefined) **Depends on `run_compose`**. Application URL in docker-compose to be expected
 
 - `pr_author_username`
 
   **Required**
 
-  Pull Request author username.
+  (string) Pull Request author username
 
 ## Outputs
 
@@ -21,23 +54,34 @@ Based on https://github.com/betrybe/jest-evaluator-action/tree/v9
 
 ## Usage example
 
-```yml
-- uses: betrybe/jest-evaluator-action@v8
-  with:
-    pr_author_username: ${{ github.event.inputs.pr_author_username }}
-```
-
 The difference between this action and the original one is that it opens up so that you can access the docker on the host system (VM).
 
 It is therefore possible to execute a docker command to create a container based on the student's project.
 
-## How to get result output
+## How to get result output (v3)
 ```yml
-- name: Jest evaluator
-  id: evaluator
-  uses: betrybe/jest-evaluator-action@v8
+- name: Fetch Docker Jest evaluator
+  uses: actions/checkout@v2
   with:
-    pr_author_username: ${{ github.event.inputs.pr_author_username }}
+    repository: betrybe/docker-jest-evaluator-action
+    ref: v1.1
+    token: ${{ secrets.GIT_HUB_PAT }}
+    path: .github/actions/docker-jest-evaluator
+
+- name: Setup NodeJS
+  uses: actions/setup-node@v1.4.6
+  with:
+    node-version: '16'
+
+- name: Run Docker Jest evaluation
+  id: jest_eval
+  uses: ./.github/actions/docker-jest-evaluator
+  with:
+    puppeteer_test: true
+    run_compose: true
+    wait_for: 'http://localhost:3000'
+    pr_author_username: ${{ github.event.inputs.pr_author_username }}}
+
 - name: Next step
   uses: another-github-action
   with:
