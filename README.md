@@ -1,9 +1,9 @@
-# docker-jest-evaluator-action
+# docker-jest-evaluator-action v1.1
 Docker Jest evaluator action for Tryber projects
 
 This action evaluate Tryber projects with [Jest](https://jestjs.io/) library.
 
-Based on https://github.com/betrybe/jest-evaluator-action/tree/v9
+Based on https://github.com/betrybe/jest-evaluator-action/tree/v9.1
 
 **Require the `Setup NodeJS` action to be executed prior to the action**
 ## Inputs
