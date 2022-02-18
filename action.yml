@@ -2,13 +2,17 @@ name: 'Docker:Dind Jest evaluator'
 description: 'Docker:Dind Jest evaluator action for Tryber projects'
 inputs:
   challenges_folder:
-    description: 'Folder that contains the docker-compose.yml file'
+    description: '(path) Folder that contains the docker-compose.yml file'
     default: 'app'
-  wait-for:
-    description: 'Url that npm start command waits for'
+    required: true
+  puppeteer_test:
+    description: '(true | undefined) Install chrome´s puppeteer requirements'
+    default: ''
+  wait_for:
+    description: '(url | undefined) Url that npm start command waits for'
     default: ''
   pr_author_username:
-    description: 'Pull Request author username'
+    description: '(string) Pull Request author username'
     required: true
 outputs:
   result:
@@ -20,7 +24,8 @@ runs:
     - name: Run EntryPoint
       id: run-entrypoint
       run:  export INPUT_CHALLENGES_FOLDER=${{ inputs.challenges_folder }} && \
-            export INPUT_WAIT_FOR=${{ inputs.wait-for }} && \
+            export INPUT_PUPPETEER_TEST=${{ inputs.puppeteer_test }} && \
+            export INPUT_WAIT_FOR=${{ inputs.wait_for }} && \
             export INPUT_PR_AUTHOR_USERNAME=${{ inputs.pr_author_username }} && \
             ${{ github.action_path }}/entrypoint.sh
       shell: bash
