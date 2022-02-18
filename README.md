@@ -32,14 +32,6 @@ Based on https://github.com/betrybe/jest-evaluator-action/tree/v9
 
   (true | undefined) Run docker-compose in `challenges_folder` after `npm install`
 
-- `wait_for`
-
-  Optional
-
-  **Default**: `undefined`
-
-  (url | undefined) Url that npm start command waits for
-
 - `pr_author_username`
 
   **Required**
@@ -77,7 +69,9 @@ It is therefore possible to execute a docker command to create a container based
   id: jest_eval
   uses: ./.github/actions/docker-jest-evaluator
   with:
-    pr_author_username: ${{ github.event.inputs.pr_author_username }}
+    puppeteer_test: true
+    run_compose: true
+    pr_author_username: ${{ github.event.inputs.pr_author_username }}}
 
 - name: Next step
   uses: another-github-action
