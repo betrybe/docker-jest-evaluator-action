@@ -24,6 +24,14 @@ Based on https://github.com/betrybe/jest-evaluator-action/tree/v9
 
   (true | undefined) Install chrome´s puppeteer requirements
 
+- `run_compose`
+
+  Optional
+
+  **Default**: `undefined`
+
+  (true | undefined) Run docker-compose in `challenges_folder` after `npm install`
+
 - `wait_for`
 
   Optional

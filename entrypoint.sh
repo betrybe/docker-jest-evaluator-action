@@ -2,8 +2,9 @@
 
 set -x
 
-compose_challenges_folder=$INPUT_CHALLENGES_FOLDER
+docker_challenges_folder=$INPUT_CHALLENGES_FOLDER
 requires_puppeteer_dependencies=$INPUT_PUPPETEER_TEST
+up_compose=$INPUT_RUN_COMPOSE
 wait_for_url=$INPUT_WAIT_FOR
 
 if [ "$requires_puppeteer_dependencies" == "true" ]; then
@@ -16,12 +17,14 @@ fi
 # Running the install before compose, as there may be post-install features
 npm install
 
-# Start student compose
-(cd $compose_challenges_folder && docker-compose up -d --build)
+if [ "$up_compose" == "true" ]; then
+  # Start student compose
+  (cd $docker_challenges_folder && docker-compose up -d --build)
 
-if [ $? != 0 ]; then
-  echo "Compose execution error"
-  exit 1
+  if [ $? != 0 ]; then
+    echo "Compose execution error"
+    exit 1
+  fi
 fi
 
 if [ ! -z "$wait_for_url" ] ; then
