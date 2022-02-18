@@ -5,6 +5,7 @@ set -x
 docker_challenges_folder=$INPUT_CHALLENGES_FOLDER
 requires_puppeteer_dependencies=$INPUT_PUPPETEER_TEST
 up_compose=$INPUT_RUN_COMPOSE
+wait_for_url=$INPUT_WAIT_FOR
 
 if [ "$requires_puppeteer_dependencies" == "true" ]; then
   sudo apt update
@@ -30,9 +31,11 @@ if [ "$up_compose" == "true" ]; then
     exit 1
   fi
   
-  # wait for server until timeout
-  echo "Waiting for the compose application to be established"
-  npx wait-on -t 30000 $wait_for_url
+  if [ ! -z $wait_for_url ]; then
+    # wait for server until timeout
+    echo "Waiting for the compose application to be established"
+    npx wait-on -t 30000 $wait_for_url
+  fi
 
   if [ $? != 0 ]; then
     echo "Compose execution error"

@@ -32,6 +32,14 @@ Based on https://github.com/betrybe/jest-evaluator-action/tree/v9
 
   (true | undefined) Run docker-compose in `challenges_folder` after `npm install`
 
+- `wait_for_url`
+
+  Optional
+
+  **Default**: `undefined`
+
+  (url | undefined) **Depends on `run_compose`**. Application URL in docker-compose to be expected
+
 - `pr_author_username`
 
   **Required**

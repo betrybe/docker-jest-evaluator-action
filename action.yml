@@ -11,6 +11,9 @@ inputs:
   run_compose:
     description: '(true | undefined) Run docker-compose in `challenges_folder` after `npm install`'
     default: ''
+  wait_for:
+    description: '(url | undefined) Depends on `run_compose`. Application URL in docker-compose to be expected'
+    default: ''
   pr_author_username:
     description: '(string) Pull Request author username'
     required: true
@@ -23,5 +26,5 @@ runs:
   steps:
     - name: Run EntryPoint
       id: run-entrypoint
-      run: export INPUT_CHALLENGES_FOLDER=${{ inputs.challenges_folder }} && export INPUT_PUPPETEER_TEST=${{ inputs.puppeteer_test }} && export INPUT_RUN_COMPOSE=${{ inputs.run_compose }} && export INPUT_PR_AUTHOR_USERNAME=${{ inputs.pr_author_username }} && ${{ github.action_path }}/entrypoint.sh
+      run: export INPUT_CHALLENGES_FOLDER=${{ inputs.challenges_folder }} && export INPUT_PUPPETEER_TEST=${{ inputs.puppeteer_test }} && export INPUT_RUN_COMPOSE=${{ inputs.run_compose }} && export INPUT_WAIT_FOR=${{ inputs.wait_for }} && export INPUT_PR_AUTHOR_USERNAME=${{ inputs.pr_author_username }} && ${{ github.action_path }}/entrypoint.sh
       shell: bash
