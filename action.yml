@@ -6,18 +6,21 @@ inputs:
     default: 'app'
   wait-for:
     description: 'Url that npm start command waits for'
-    default: 'http://localhost:3000'
+    default: ''
   pr_author_username:
     description: 'Pull Request author username'
     required: true
-
 outputs:
   result:
     description: 'Jest unit tests JSON results in base64 format.'
-
+    value: ${{ steps.run-entrypoint.outputs.result }}
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.challenges_folder }}
-    - ${{ inputs.wait-for }}
+  using: 'composite'
+  steps:
+    - name: Run EntryPoint
+      id: run-entrypoint
+      run:  export INPUT_CHALLENGES_FOLDER=${{ inputs.challenges_folder }} && \
+            export INPUT_WAIT_FOR=${{ inputs.wait-for }} && \
+            export INPUT_PR_AUTHOR_USERNAME=${{ inputs.pr_author_username }} && \
+            ${{ github.action_path }}/entrypoint.sh
+      shell: bash

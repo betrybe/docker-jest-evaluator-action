@@ -1,21 +1,11 @@
 #!/bin/bash
 
 set -x
-set -m
 
-compose_challenges_folder=$1
-# wait_for_url=$2
+compose_challenges_folder=$INPUT_CHALLENGES_FOLDER
+wait_for_url=$INPUT_WAIT_FOR
 
-# Start docker service in background
-/usr/local/bin/dockerd-entrypoint.sh &
-
-# Wait that the docker service is up
-while ! docker info; do
-  echo "Waiting docker..."
-  sleep 3
-done
-
-# Run default jest evaluation
+# Running the install before compose, as there may be post-install features
 npm install
 
 # Start student compose
@@ -26,7 +16,9 @@ if [ $? != 0 ]; then
   exit 1
 fi
 
-# npx wait-on -t 300000 $wait_for_url # wait for server until timeout
+if [ ! -z "$wait_for_url" ] ; then
+  npx wait-on -t 300000 $wait_for_url # wait for server until timeout
+fi
 
 npm test -- --json --forceExit --outputFile=evaluation.json
 node /evaluator.js evaluation.json .trybe/requirements.json result.json
