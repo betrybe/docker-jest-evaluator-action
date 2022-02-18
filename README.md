@@ -32,7 +32,7 @@ Based on https://github.com/betrybe/jest-evaluator-action/tree/v9
 
   (true | undefined) Run docker-compose in `challenges_folder` after `npm install`
 
-- `wait_for_url`
+- `wait_for`
 
   Optional
 
@@ -79,6 +79,7 @@ It is therefore possible to execute a docker command to create a container based
   with:
     puppeteer_test: true
     run_compose: true
+    wait_for: 'http://localhost:3000'
     pr_author_username: ${{ github.event.inputs.pr_author_username }}}
 
 - name: Next step
