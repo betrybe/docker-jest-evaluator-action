@@ -14,21 +14,29 @@ Based on https://github.com/betrybe/jest-evaluator-action/tree/v9
   
   **Default**: `app`
     
-  Folder that contains the docker-compose.yml file
+  (path) Folder that contains the docker-compose.yml file
 
-- `wait-for`
+- `puppeteer_test`
 
   Optional
 
   **Default**: `undefined`
 
-  Url that npm start command waits for
+  (true | undefined) Install chrome´s puppeteer requirements
+
+- `wait_for`
+
+  Optional
+
+  **Default**: `undefined`
+
+  (url | undefined) Url that npm start command waits for
 
 - `pr_author_username`
 
   **Required**
 
-  Pull Request author username.
+  (string) Pull Request author username
 
 ## Outputs
 
