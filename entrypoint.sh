@@ -44,7 +44,10 @@ if [ "$up_compose" == "true" ]; then
 fi
 
 # Run jest test
-npm test -- --json --forceExit --outputFile=evaluation.json
+# npm test -- --json --forceExit --outputFile=evaluation.json
+
+ls -la 
+
 node evaluator.js evaluation.json .trybe/requirements.json result.json
 
 if [ $? != 0 ]; then
