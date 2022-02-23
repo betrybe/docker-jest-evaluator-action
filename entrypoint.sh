@@ -46,7 +46,9 @@ fi
 # Run jest test
 # npm test -- --json --forceExit --outputFile=evaluation.json
 
+echo "----------------"
 ls -la 
+echo "----------------"
 
 node evaluator.js evaluation.json .trybe/requirements.json result.json
 
