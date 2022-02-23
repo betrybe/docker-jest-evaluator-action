@@ -45,7 +45,7 @@ fi
 
 # Run jest test
 npm test -- --json --forceExit --outputFile=evaluation.json
-node /evaluator.js evaluation.json .trybe/requirements.json result.json
+node evaluator.js evaluation.json .trybe/requirements.json result.json
 
 if [ $? != 0 ]; then
   echo "Test execution error"
