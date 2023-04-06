@@ -58,4 +58,4 @@ if [ "$up_compose" == "true" ]; then
   (cd $docker_challenges_folder && docker-compose down --remove-orphans &> /dev/null)
 fi
 
-echo ::set-output name=result::`cat result.json | base64 -w 0`
+echo "result=`cat result.json | base64 -w 0`" >> $GITHUB_OUTPUT
